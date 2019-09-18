@@ -1,30 +1,40 @@
-# PyBank main.py
+
+# PayBank main.py
+# Farshad Esnaashari M/W grop
+# Submitted by Farshad Esnaashari
+
+# import packages
 import os
 import csv
 
-budget_data_csv = os.path.join("..","budget_data.csv")
+# Set the path for the csv file
+budget_data_csv = os.path.join("Resources", "budget_data.csv")
 
 
 # initialize the variables
 total_profits = 0
 total_months = 0
-monthly_change = 0
-total_monthly_changes = 0
-g_increase_value = 0
-g_increase_month = ""
 
-g_decrease_value = 0
-g_decrease_month = ""
+monthly_change = 0
+sum_of_changes = 0
+
+greatest_inc = 0
+greatest_inc_month = ""
+
+greatest_dec = 0
+greatest_dec_month = ""
 
 # open the budget_data.csv
 
 with open(budget_data_csv, newline="") as csvfile:
     
-    # read the rows
+    # read the rows into the csvreader
     csvreader=csv.reader(csvfile,delimiter=",")
+
+    # read the header
     csv_header = next(csvfile)
 
-    # loop through the rows and add them to the lists
+    # loop through the lines
     for row in csvreader:
 
         # increment the total months
@@ -33,49 +43,51 @@ with open(budget_data_csv, newline="") as csvfile:
         # add to the total_profits
         total_profits = total_profits+ int(row[1])
         
-        # if the total_months == 1 set the last_value and set the change from last monmth to zero
+        # if the total_months == 1 then set the last_value to the current profit
         if total_months ==1:
             last_value = int(row[1])
-        # else if total_months > 1 calcuate the change from last month
+        # else if total_months > 1 calcuate the monthly_change and set the last value to the current profit
         elif total_months >1:
             monthly_change = int(row[1]) - last_value
             last_value= int(row[1])
-        # add to the total monthly changes
-        print(f" month {row[0]}, monthly_change {monthly_change} total_monthly_changes {total_monthly_changes}")
-        total_monthly_changes = total_monthly_changes + monthly_change
 
-        # determine the the greatest increase
-        if g_increase_value < monthly_change:
-            g_increase_value = monthly_change
-            g_increase_month = row[0]
+        # calculate sum_of_changes
+        print(f" month {row[0]}, monthly_change {monthly_change} sum_of_changes {sum_of_changes}")
+        sum_of_changes = sum_of_changes + monthly_change
 
-        #dtermine the greatest decrease
-        if g_decrease_value > monthly_change:
-            g_decrease_value = monthly_change
-            g_decrease_month = row[0]
+        # update the the greatest increase
+        if greatest_inc < monthly_change:
+            greatest_inc = monthly_change
+            greatest_inc_month = row[0]
 
-#print the finanacial analysis
+        # update the greatest decrease
+        if greatest_dec > monthly_change:
+            greatest_dec = monthly_change
+            greatest_dec_month = row[0]
+
+#print the finanacial analysis to the termina
 
 print("Financial Analysis")
 print("--------------------")
 print(f"Total Months: {total_months} ")
 print(f"Total: ${total_profits}")
-print(f"Average change ${round(float(total_monthly_changes/(total_months-1)),2)}")
-print(f"Greatest increase in profits: {g_increase_month} (${g_increase_value})")
-print(f"Greatest decrease in profits: {g_decrease_month} (${g_decrease_value})")
+print(f"Average change ${round(float(sum_of_changes/(total_months-1)),2)}")
+print(f"Greatest increase in profits: {greatest_inc_month} (${greatest_inc})")
+print(f"Greatest decrease in profits: {greatest_dec_month} (${greatest_dec})")
 
-#write it to a text file
-#output_path= os.path.join("..","PyBank_output.txt")
+# write the financial analysis to a text file
+output_path= os.path.join("Outputs", "PyBank_output.txt")
 
 # open the file
-# with open (output_path, 'w', newline='') as txtfile:
-#     # write rows
-#     txtwriter = txtfile.write("Financial Analysis\n")
-#     txtwriter = txtfile.write("--------------------\n")
-#     txtwriter = txtfile.write(f"Total Months: {totalMonths}\n")
-#     txtwriter = txtfile.write(f"Total: ${totalProfits}\n")
-#     txtwriter = txtfile.write(f"Average change ${round(float(sum_of_changes/(totalMonths-1)),2)}\n")
-#     txtwriter = txtfile.write(f"Greatest increase in profits: {g_increase_month} (${g_increase_value})\n")
-#     txtwriter = txtfile.write(f"Greatest decrease in profits: {g_decrease_month} (${g_decrease_value})\n")
+with open (output_path, 'w', newline='') as txtfile:
+
+    # write the results 
+    txtwriter = txtfile.write("Financial Analysis\n")
+    txtwriter = txtfile.write("--------------------\n")
+    txtwriter = txtfile.write(f"Total Months: {total_months}\n")
+    txtwriter = txtfile.write(f"Total: ${total_profits}\n")
+    txtwriter = txtfile.write(f"Average change ${round(float(sum_of_changes/(total_months-1)),2)}\n")
+    txtwriter = txtfile.write(f"Greatest increase in profits: {greatest_inc_month} (${greatest_inc})\n")
+    txtwriter = txtfile.write(f"Greatest decrease in profits: {greatest_dec_month} (${greatest_dec})\n")
 
 
