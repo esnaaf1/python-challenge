@@ -48,13 +48,13 @@ output_path= os.path.join("Outputs", "PyPoll_output.txt")
 with open (output_path, 'w', newline='') as textfile:
     
     # print to the terminal
-    print("election results")
+    print("Election Results")
     print("---------------------------")
     print(f"Total Votes: {total_votes}")
     print("---------------------------")
     
-    # write to the file
-    textwriter=textfile.write("election results\n")
+    # write to the textfile
+    textwriter=textfile.write("Election Results\n")
     textwriter=textfile.write("---------------------------\n")
     textwriter=textfile.write(f"Total Votes: {total_votes}\n")
     textwriter=textfile.write("---------------------------\n")
@@ -65,18 +65,18 @@ with open (output_path, 'w', newline='') as textfile:
         if votes > winner_votes:
             winner = candidate
             winner_votes = votes
-        print(f"{candidate}: {round(float(votes/total_votes*100),3)}% ({votes})")
+        print(f"{candidate}: {round(100*float(votes/total_votes),3)}% ({votes})")
 
-        #write to the file
-        textwriter=textfile.write(f"{candidate}: {round(float(votes/total_votes*100),3)}% ({votes})\n")
+        #write to the textfile
+        textwriter=textfile.write(f"{candidate}: {round(100*float(votes/total_votes),3)}% ({votes})\n")
 
     print("---------------------------")
-    print(f"winner: {winner}")
+    print(f"Winner: {winner}")
     print("---------------------------")
 
-    # write to the file
+    # write to the textfile
     textwriter = textfile.write("---------------------------\n")
-    textwriter = textfile.write(f"winner: {winner}\n")
+    textwriter = textfile.write(f"Winner: {winner}\n")
     textwriter = textfile.write("---------------------------\n")
 
 
