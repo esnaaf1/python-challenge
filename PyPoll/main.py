@@ -36,23 +36,49 @@ with open (election_data_csv, newline = "") as csvfile:
         # otherwise add the candidate and set the vote to 1
         else:
             candidate_dict[candidate] = 1
-print(f" total: {total_votes}")
-for candidates, votes in candidate_dict.items():
-    print (candidates, votes)
+
+# initialize the winner
+winner = ""
+winner_votes= 0
+
+# set the path for the txt file
+output_path= os.path.join("Outputs", "PyPoll_output.txt")
+
+# open the file
+with open (output_path, 'w', newline='') as textfile:
+    
+    # print to the terminal
+    print("election results")
+    print("---------------------------")
+    print(f"Total Votes: {total_votes}")
+    print("---------------------------")
+    
+    # write to the file
+    textwriter=textfile.write("election results\n")
+    textwriter=textfile.write("---------------------------\n")
+    textwriter=textfile.write(f"Total Votes: {total_votes}\n")
+    textwriter=textfile.write("---------------------------\n")
+
+    # loop through the candiates    
+    for candidate in candidate_dict:
+        votes = candidate_dict[candidate]
+        if votes > winner_votes:
+            winner = candidate
+            winner_votes = votes
+        print(f"{candidate}: {round(float(votes/total_votes*100),3)}% ({votes})")
+
+        #write to the file
+        textwriter=textfile.write(f"{candidate}: {round(float(votes/total_votes*100),3)}% ({votes})\n")
+
+    print("---------------------------")
+    print(f"winner: {winner}")
+    print("---------------------------")
+
+    # write to the file
+    textwriter = textfile.write("---------------------------\n")
+    textwriter = textfile.write(f"winner: {winner}\n")
+    textwriter = textfile.write("---------------------------\n")
 
 
-# 
-# while answer =="y":
-#     candidate = input("Enter the Candidate Name:  ")
 
-#     print(f" from the keyboard: { candidate}")
 
-#     # if the candidate is the dictionary, then increment the voote
-#     if candidate in candidate_dict:
-#         vote = candidate_dict.get(candidate)
-#         vote +=1 
-#         candidate_dict[candidate] = vote
-#     else:
-#         candidate_dict[candidate] = 1
-#     answer = input("Do you want to add another Candidate? y(es) or n(o)? ")
-# print(f" candidate_dict { candidate_dict}")

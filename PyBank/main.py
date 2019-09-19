@@ -52,7 +52,6 @@ with open(budget_data_csv, newline="") as csvfile:
             last_value= int(row[1])
 
         # calculate sum_of_changes
-        print(f" month {row[0]}, monthly_change {monthly_change} sum_of_changes {sum_of_changes}")
         sum_of_changes = sum_of_changes + monthly_change
 
         # update the the greatest increase
