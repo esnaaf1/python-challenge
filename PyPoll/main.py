@@ -1,6 +1,6 @@
 # main.pay in PyPoll
-# Farshad Esnaashari
-# Data Anlytics and Visualization M-W
+# Data Anlytics and Visualization M-W session
+# Submitted by Farshad Esnaashari
 
 # import packages
 import os
@@ -23,6 +23,7 @@ with open (election_data_csv, newline = "") as csvfile:
     csv_header = next(csvreader)
     # inialize the total voites
     total_votes = 0
+
     # loop through the data file
     for row in csvreader:
         candidate = row[2]
@@ -37,7 +38,7 @@ with open (election_data_csv, newline = "") as csvfile:
         else:
             candidate_dict[candidate] = 1
 
-# initialize the winner
+# initialize the winner variables
 winner = ""
 winner_votes= 0
 
@@ -65,10 +66,10 @@ with open (output_path, 'w', newline='') as textfile:
         if votes > winner_votes:
             winner = candidate
             winner_votes = votes
-        print(f"{candidate}: {round(100*votes/total_votes,3)}% ({votes})")
-
+        print(f" {candidate}: {'{:.3f}'.format(100*votes/total_votes)}% ({votes})")
         #write to the textfile
-        textwriter=textfile.write(f"{candidate}: {round(100*votes/total_votes,3)}% ({votes})\n")
+        #textwriter=textfile.write(f"{candidate}: {round(100*votes/total_votes,3)}% ({votes})\n")
+        textwriter=textfile.write(f" {candidate}: {'{:.3f}'.format(100*votes/total_votes)}% ({votes})\n")
     print("---------------------------")
     print(f"Winner: {winner}")
     print("---------------------------")
