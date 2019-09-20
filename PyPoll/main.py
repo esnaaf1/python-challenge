@@ -65,20 +65,15 @@ with open (output_path, 'w', newline='') as textfile:
         if votes > winner_votes:
             winner = candidate
             winner_votes = votes
-        print(f"{candidate}: {round(100*float(votes/total_votes),3)}% ({votes})")
+        print(f"{candidate}: {round(100*votes/total_votes,3)}% ({votes})")
 
         #write to the textfile
-        textwriter=textfile.write(f"{candidate}: {round(100*float(votes/total_votes),3)}% ({votes})\n")
-
+        textwriter=textfile.write(f"{candidate}: {round(100*votes/total_votes,3)}% ({votes})\n")
     print("---------------------------")
     print(f"Winner: {winner}")
     print("---------------------------")
 
-    # write to the textfile
+#write to the textfile
     textwriter = textfile.write("---------------------------\n")
     textwriter = textfile.write(f"Winner: {winner}\n")
     textwriter = textfile.write("---------------------------\n")
-
-
-
-
